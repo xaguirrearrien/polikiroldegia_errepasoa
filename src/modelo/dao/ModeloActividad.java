@@ -189,12 +189,6 @@ public class ModeloActividad extends Conector{
 			if (rs.next()) {
 				
 				Actividad actividad = new Actividad();
-				/*actividad.setId(rs.getInt("id"));
-				/*actividad.setNombre(rs.getString("nombre"));
-				actividad.setFechaInicio(rs.getDate("fecha_Inicio"));
-				actividad.setDiasSemana(rs.getString("dias_Semana"));
-				actividad.setHoras(rs.getInt("horas"));
-				actividad.setMaxParticipantes(rs.getInt("max_Participantes"));*/
 				actividad.setPrecio(rs.getDouble("precio"));
 
 				return actividad;
