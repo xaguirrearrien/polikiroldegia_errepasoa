@@ -11,18 +11,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		/*ModeloActividad ma = new ModeloActividad();
+		ModeloActividad ma = new ModeloActividad();
 		
-		ArrayList<Actividad> actividades = ma.selectAll();
+		ArrayList<Actividad> actividades = ma.actividadesFiltradosPorPrecio(25, 30);
 		
-		System.out.println(actividades);*/
+		System.out.println(actividades);
 		
 		
-		ModeloInscripcion mi = new ModeloInscripcion();
+		/*ModeloInscripcion mi = new ModeloInscripcion();
 		
 		ArrayList<Inscripcion> inscripciones = mi.selectAll();
 		
-		System.out.println(inscripciones);
+		System.out.println(inscripciones);*/
 
 	}
 

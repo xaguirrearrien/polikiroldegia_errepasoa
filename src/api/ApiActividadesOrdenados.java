@@ -17,19 +17,19 @@ import modelo.bean.Actividad;
 import modelo.dao.ModeloActividad;
 import modelo.util.ActividadesComparatorAsc;
 import modelo.util.ActividadesComparatorDesc;
-import modelo.util.PrecioComparator;
+import modelo.util.ActividadesComparatorFechaInicio;
 
 /**
- * Servlet implementation class ApiActividadesParametroBakarra
+ * Servlet implementation class ApiActividadesOrdenados
  */
-@WebServlet("/ApiActividadesParametroBakarra")
-public class ApiActividadesPorPrecio extends HttpServlet {
+@WebServlet("/ApiActividadesOrdenados")
+public class ApiActividadesOrdenados extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApiActividadesPorPrecio() {
+    public ApiActividadesOrdenados() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,12 +40,25 @@ public class ApiActividadesPorPrecio extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String orden = request.getParameter("orden");
+		String campo = request.getParameter("campo");
 		ModeloActividad modeloActividad = new ModeloActividad();
 		ArrayList<Actividad> actividades = modeloActividad.selectAll();
 		
-		if (orden.equals("0")) {
+		if (campo.equals("precio")) {
+			if (orden.equals("asc")) {
+				actividades.sort(new ActividadesComparatorAsc());
+				}else if(orden.equals("desc")){
+					actividades.sort(new ActividadesComparatorDesc());
+				}
+		}else if (campo.equals("fechaInicio")) {
+			if () {
+				
+			}
+		}
+		
+		if (orden.equals("asc")) {
 		actividades.sort(new ActividadesComparatorAsc());
-		}else if(orden.equals("1")){
+		}else if(orden.equals("desc")){
 			actividades.sort(new ActividadesComparatorDesc());
 		}
 		

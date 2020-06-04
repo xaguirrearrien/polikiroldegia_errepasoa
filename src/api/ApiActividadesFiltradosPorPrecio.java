@@ -11,25 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONStringer;
+import org.json.JSONObject;
 
 import modelo.bean.Actividad;
 import modelo.dao.ModeloActividad;
-import modelo.util.ActividadesComparatorAsc;
-import modelo.util.ActividadesComparatorDesc;
-import modelo.util.PrecioComparator;
 
 /**
- * Servlet implementation class ApiActividadesParametroBakarra
+ * Servlet implementation class ApiActividadesFiltradosPorPrecio
  */
-@WebServlet("/ApiActividadesParametroBakarra")
-public class ApiActividadesPorPrecio extends HttpServlet {
+@WebServlet("/ApiActividadesFiltradosPorPrecio")
+public class ApiActividadesFiltradosPorPrecio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApiActividadesPorPrecio() {
+    public ApiActividadesFiltradosPorPrecio() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,22 +36,21 @@ public class ApiActividadesPorPrecio extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String orden = request.getParameter("orden");
-		ModeloActividad modeloActividad = new ModeloActividad();
-		ArrayList<Actividad> actividades = modeloActividad.selectAll();
+		int max = Integer.parseInt(request.getParameter("max"));
+		int min = Integer.parseInt(request.getParameter("min"));
 		
-		if (orden.equals("0")) {
-		actividades.sort(new ActividadesComparatorAsc());
-		}else if(orden.equals("1")){
-			actividades.sort(new ActividadesComparatorDesc());
-		}
+		ModeloActividad modeloActividad = new ModeloActividad();
+		ArrayList<Actividad> actividad = modeloActividad.actividadesFiltradosPorPrecio(min, max);
+		
+		JSONObject jsonObject = new JSONObject(actividad);
+		String jsonString = jsonObject.toString();
+		
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF8"), true);
 		
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 
-		String jsonString = JSONStringer.valueToString(actividades);
-		
-	    PrintWriter out = new PrintWriter(new OutputStreamWriter(response.getOutputStream(), "UTF8"), true);
 		out.print(jsonString);
 		out.flush();
 	}
